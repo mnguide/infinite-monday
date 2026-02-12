@@ -26,6 +26,7 @@ const getUserKeyForGameMock = async (): Promise<{ type: 'HASH'; hash: string } |
   };
 };
 
+const TOSS_SDK = '@apps-in-toss/web-framework';
 const STORAGE_KEY = 'infinite-monday-save';
 
 export function useTossGame() {
@@ -46,7 +47,7 @@ export function useTossGame() {
 
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sdk = await import('@apps-in-toss/web-framework') as any;
+        const sdk = await import(/* @vite-ignore */ TOSS_SDK) as any;
         Storage = sdk.Storage;
         getUserKeyForGame = sdk.getUserKeyForGame;
       } catch {
@@ -94,7 +95,7 @@ export function useTossGame() {
       let Storage: typeof StorageMock;
 
       try {
-        const sdk = await import('@apps-in-toss/web-framework');
+        const sdk = await import(/* @vite-ignore */ TOSS_SDK) as any;
         Storage = sdk.Storage;
       } catch {
         Storage = StorageMock;
