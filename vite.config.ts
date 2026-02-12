@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 
 export default defineConfig({
+  base: '/infinite-monday/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -12,5 +13,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    rollupOptions: {
+      external: ['@apps-in-toss/web-framework'],
+    },
   },
 });
