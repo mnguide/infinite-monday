@@ -41,10 +41,7 @@ yarn-error.log*
 # Testing
 coverage
 
-# Yarn
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+# Yarn (not used, npm으로 통일)
+yarn.lock
+.yarn
+.yarnrc.yml
