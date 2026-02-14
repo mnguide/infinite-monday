@@ -3,11 +3,12 @@ import { useGameStore } from '@/store/gameStore';
 export function Header() {
   const { loop, permanent } = useGameStore();
 
-  // Convert minutes to display format
-  const hour = Math.floor(loop.time / 60);
+  // Convert minutes to display format (clamp to 24h range)
+  const clampedTime = Math.min(loop.time, 24 * 60);
+  const hour = Math.floor(clampedTime / 60) % 24;
   const period = hour >= 12 ? '오후' : '오전';
   const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
-  const minute = loop.time % 60;
+  const minute = clampedTime % 60;
   const timeDisplay = `${period} ${displayHour}:${minute.toString().padStart(2, '0')}`;
 
   return (

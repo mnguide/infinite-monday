@@ -300,14 +300,16 @@ export const INITIAL_LOOP: LoopState = {
 
 /** 시간 포맷 헬퍼 */
 export function formatTime(minutes: GameTime): string {
-  const h = Math.floor(minutes / 60);
-  const m = minutes % 60;
+  const clamped = Math.min(minutes, DAY_END_TIME);
+  const wrapped = clamped % DAY_END_TIME;
+  const h = Math.floor(wrapped / 60);
+  const m = wrapped % 60;
   return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
 }
 
 /** 시간대 판정 */
 export function getTimePeriod(minutes: GameTime): TimePeriod {
-  const hour = Math.floor(minutes / 60);
+  const hour = Math.floor(Math.min(minutes, DAY_END_TIME) / 60) % 24;
   if (hour < 9) return 'early_morning';
   if (hour < 12) return 'morning';
   if (hour < 14) return 'lunch';

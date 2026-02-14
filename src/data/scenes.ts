@@ -8,6 +8,7 @@ import {
   GameState,
   EndingType,
   CharacterId,
+  formatTime,
 } from '@/types/game';
 
 // ============================================
@@ -1796,7 +1797,8 @@ PM? 대상 #042? 무슨 의미지?`,
     description: (state) => {
       const time = state.loop.time;
       if (time >= 18 * 60) {
-        return `6시가 됐다. 퇴근 시간이다.
+        const timeStr = formatTime(time);
+        return `${timeStr}. 퇴근 시간이 지났다.
 
 하지만 김부장은 아직 자리에 있다.
 눈치가 보인다...`;
@@ -1877,10 +1879,13 @@ PM? 대상 #042? 무슨 의미지?`,
     id: 'follow_boss_scene',
     location: 'office',
     title: '미행',
-    description: `김부장이 자리에서 일어났다.
-17시가 됐다.
+    description: (state) => {
+      const timeStr = formatTime(state.loop.time);
+      return `김부장이 자리에서 일어났다.
+${timeStr}이 됐다.
 
-몰래 뒤를 따라간다...`,
+몰래 뒤를 따라간다...`;
+    },
     choices: [
       {
         id: 'follow_careful',

@@ -243,7 +243,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   // ----------------------------------------
   addTime: (minutes) => {
     const state = get();
-    const newTime = state.loop.time + minutes;
+    const newTime = Math.min(state.loop.time + minutes, DAY_END_TIME);
 
     set({
       loop: {
