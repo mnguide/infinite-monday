@@ -80,3 +80,4 @@ Stats (0-100, except money): Health, Mental, Reputation, Money
 10 endings: ESCAPE, PROMOTION, LOVE, STARTUP, RICH, ENLIGHTENED, BURNOUT, HOSPITALIZED, FIRED, SECRET
 
 New choices unlock based on `totalLoops` and `achievedEndings` in permanent state.
+
