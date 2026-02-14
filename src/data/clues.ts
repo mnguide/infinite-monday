@@ -254,7 +254,7 @@ export const clues: Record<string, Clue> = {
 
 이름: [플레이어]
 부서: 기획팀
-루프 시작일: 2024-XX-XX
+루프 시작일: 2026-05-25
 현재 루프: {totalLoops}회차
 
 특이사항:
