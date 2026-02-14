@@ -95,7 +95,7 @@ export function useTossGame() {
       let Storage: typeof StorageMock;
 
       try {
-        const sdk = await import(/* @vite-ignore */ TOSS_SDK) as any;
+        const sdk = await import(/* @vite-ignore */ TOSS_SDK) as { Storage: typeof StorageMock };
         Storage = sdk.Storage;
       } catch {
         Storage = StorageMock;

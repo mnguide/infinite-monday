@@ -348,7 +348,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       loopCount: state.permanent.totalLoops,
     };
 
-    let newPermanent = { ...state.permanent };
+    const newPermanent = { ...state.permanent };
 
     // 새 엔딩이면 추가
     if (!alreadyAchieved) {
