@@ -22,9 +22,17 @@ export function ChoiceButtons() {
     return null;
   }
 
+  const currentMoney = gameState.loop.stats.money;
+
+  const isMoneyInsufficient = (choice: typeof availableChoices[number]) => {
+    const moneyCost = choice.effect?.stats?.money;
+    return moneyCost !== undefined && moneyCost < 0 && currentMoney + moneyCost < 0;
+  };
+
   const handleChoice = (choiceId: string) => {
     const choice = scene.choices.find(c => c.id === choiceId);
     if (!choice) return;
+    if (isMoneyInsufficient(choice)) return;
 
     // Apply effect if exists
     if (choice.effect) {
@@ -37,18 +45,25 @@ export function ChoiceButtons() {
 
   return (
     <div className="choices-container safe-area-bottom">
-      {availableChoices.map((choice, index) => (
-        <button
-          key={choice.id}
-          className="choice-button slide-in"
-          style={{ animationDelay: `${index * 0.1}s` }}
-          onClick={() => handleChoice(choice.id)}
-        >
-          {choice.icon && <span className="choice-icon">{choice.icon}</span>}
-          {choice.text}
-          {choice.hint && <span className="choice-hint">({choice.hint})</span>}
-        </button>
-      ))}
+      {availableChoices.map((choice, index) => {
+        const insufficient = isMoneyInsufficient(choice);
+        return (
+          <button
+            key={choice.id}
+            className={`choice-button slide-in${insufficient ? ' choice-disabled' : ''}`}
+            style={{ animationDelay: `${index * 0.1}s` }}
+            onClick={() => handleChoice(choice.id)}
+            disabled={insufficient}
+          >
+            {choice.icon && <span className="choice-icon">{choice.icon}</span>}
+            {choice.text}
+            {insufficient
+              ? <span className="choice-hint">(돈 부족)</span>
+              : choice.hint && <span className="choice-hint">({choice.hint})</span>
+            }
+          </button>
+        );
+      })}
     </div>
   );
 }

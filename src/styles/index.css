@@ -339,9 +339,14 @@ body {
   transform: scale(0.98);
 }
 
-.choice-button.disabled {
+.choice-button.disabled,
+.choice-button.choice-disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.choice-button.choice-disabled .choice-hint {
+  color: var(--text-secondary);
 }
 
 .choice-icon {

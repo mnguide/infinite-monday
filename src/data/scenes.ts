@@ -1534,6 +1534,11 @@ export const scenes: Record<string, Scene> = {
       const time = state.loop.time;
       const remaining = 18 * 60 - time; // 퇴근 시간까지
 
+      if (remaining <= 0) {
+        return `퇴근 시간이 지났다.
+
+더 이상 여기 있을 이유가 없다.`;
+      }
       if (remaining <= 60) {
         return `슬슬 퇴근 시간이 다가온다.
 
@@ -1545,8 +1550,18 @@ export const scenes: Record<string, Scene> = {
     },
     choices: [
       {
+        id: 'afternoon_to_evening',
+        text: '🏠 퇴근 준비하기',
+        condition: 'time >= 1080',
+        effect: {
+          time: 0,
+        },
+        nextSceneId: 'evening_decision',
+      },
+      {
         id: 'work_afternoon',
         text: '💼 열심히 일하기',
+        condition: 'time < 1080',
         hint: '평판 +5, 멘탈 -10',
         effect: {
           time: 120,
@@ -1557,6 +1572,7 @@ export const scenes: Record<string, Scene> = {
       {
         id: 'go_rooftop',
         text: '🏢 옥상 가기',
+        condition: 'time < 1020',
         hint: '멘탈 +10',
         effect: {
           time: 30,
